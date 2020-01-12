@@ -80,6 +80,9 @@ The script has extensive options for configuration, but only the default configu
   pdwin64path=$parentpath/pd-win64
   darwinsdkpath=$parentpath/osxcross$darwinversion/target/bin
 ```
+### More information
 
+ * https://github.com/electrickery/pd-dekencross/blob/master/doc/crossbuild.txt
+ * https://github.com/pure-data/pd-lib-builder/blob/master/tips-tricks.md
 
 *Fred Jan Kraan, fjkraan@xs4all.nl, 2020-01-12*
