@@ -72,7 +72,8 @@ Some extra operations are performed:
 
 The script has extensive options for configuration, but only the default configuration is described. Note the darwin version does not match the OSX version.
 
-```  darwinversion=12
+```
+  darwinversion=12
 
   pdsourcepath=$parentpath/pd-sources
   pdwin32path=$parentpath/pd-win32
