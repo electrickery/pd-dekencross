@@ -19,7 +19,7 @@ The script is in an early beta-stage, but can already create deken packages for:
  * Windows-amd64-32
  * Windows-i386-32
 
-Default platform-specific extensions are used. These are:
+Pure Data platform-specific extensions are used. These are:
 
  * d_fat
  * l_arm
@@ -31,23 +31,23 @@ Default platform-specific extensions are used. These are:
 
 ### Build and package tree
 
-  ./
+```  ./
     osxcross12/   - OSX SDK package (see doc/crossbuild.txt on how to get it)
     pd-libs/      - Location of the source packages and build/package results
             dekencross.sh - the cross compile and build script
     pd-sources/   - The Pure Data source package
     pd-win32/     - The Pure Data Win32 binaries
-    pd-win64/     - The Pure Data Win64 binaries
+    pd-win64/     - The Pure Data Win64 binaries```
 
 The source packages are just libraries as copied or cloned from a git-repository. These libraries should be Makefile.pdlibbuilder 0.6.0 based. Makefile.pdlibbuilder can be found here: https://github.com/pure-data/pd-lib-builder
 
 ### Usage
 
-  bash dekencross.sh <library name> <library source dir>
+  `bash dekencross.sh <library name> <library source dir>`
 
 It is important to have separate names for the source directory and the build/package directory. The latter wil be the name used for the package name. An example:
 
-  bash dekencross.sh pd-freeverb~ freeverb~
+  `bash dekencross.sh pd-freeverb~ freeverb~`
 
 ### Operational details
 
@@ -71,12 +71,12 @@ Some extra operations are performed:
 
 The script has extensive options for configuration, but only the default configuration is described. Note the darwin version does not match the OSX version.
 
-  darwinversion=12
+```  darwinversion=12
 
   pdsourcepath=$parentpath/pd-sources
   pdwin32path=$parentpath/pd-win32
   pdwin64path=$parentpath/pd-win64
-  darwinsdkpath=$parentpath/osxcross$darwinversion/target/bin
+  darwinsdkpath=$parentpath/osxcross$darwinversion/target/bin```
 
 
 *Fred Jan Kraan, fjkraan@xs4all.nl, 2020-01-12*
