@@ -5,7 +5,7 @@ This repository contains the dekencross.sh bash script that allows cross-compila
 
 Dekencross.sh is written by Katja Vetter, partially based on a deken-package script 'dekenizer.sh' by Fred Jan Kraan.
 
-This git platform is intended to attract more beta-testers and feedback on future enhancements. **Note this is not a tool to learn about programming or (cross-)compilation**.
+This git platform is intended to attract more beta-testers and feedback on future enhancements. **Note this is not a tool to learn about programming or (cross-)compilation**. 
 
 ### Supported platforms
 
@@ -56,23 +56,24 @@ Here *pd-freeverb~* is the name of the github repository. *freeverb~* is used in
 
 ### Operational details
 
-In the pd-lib a new directory will be created, **&lt;library name&gt;-bindist** which 
-contains a directories per built platform, each containing an installed external. 
-These installed external directory are each packaged to a &lt;package name&gt;.dek file. 
-The **package name** is composed of the &lt;library name&gt;, 
-the \[v&lt;version&gt;\](platform-name), "(Sources)" and extension '.dek'. 
+In the pd-lib a new directory will be created, **`<library name>-bindist`** which 
+contains a directories per built platform, each containing an installed library of externals. 
+These installed external directory are each packaged to a `<package name>.dek` file. 
+The **package name** is composed of the `<library name>`, 
+the `[v<version>]](platform-name)`, `(Sources)` and the extension `.dek`.
+
 Some extra operations are performed:
 
- * The &lt;library name&gt;-meta.pd is probed in the &lt;library source dir&gt; for the VERSION, 
-   which will part of the &lt;package name&gt;.dek file,
- * The clean &lt;library source dir&gt; is packaged in a zip file and copied in the install 
-   directory before packaging. The filename &lt;library name&gt;[v&lt;version&gt;](Sources).zip, 
- * An "objects.txt" inside the &lt;library source dir&gt; will be copied to the a file named 
-   &lt;package name&gt;.dek.txt,
- * A sha256sum will be calculated from the &lt;package name&gt;.dek file and placed in a file 
-   named &lt;package name&gt;.dek.sha256,
- * The dekencross.sh will abort when the &lt;library name&gt;-bindist directory already exists,
- * The dekencross.sh will abort when an error occurrs after argument parsing.
+ * The `<library name>`-meta.pd is probed in the `<library source dir>` for the VERSION, 
+   which will be part of the `<package name>.dek` file,
+ * The clean `<library source dir>` is packaged in a zip file and copied in the install 
+   directory before packaging. The filename is `<library name>[v<version>](Sources).zip`, 
+ * An "objects.txt" inside the `<library source dir>` will be copied to a file named 
+   `<package name>.dek.txt`,
+ * A sha256sum will be calculated from the `<package name>.dek` file and placed in a file 
+   named `<package name>.dek.sha256`,
+ * The dekencross.sh will abort when the `<library name>-bindist` directory already exists,
+ * The dekencross.sh will abort when an error occurs.
 
 The result is ready to be uploaded with the deken-dev tool; `deken upload *.dek`. The .dek files
 are produced per platform, except the MacOSX versions which are in one fat package. 
