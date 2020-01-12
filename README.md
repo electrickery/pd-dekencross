@@ -3,7 +3,7 @@
 This repository contains the dekencross.sh bash script that allows cross-compilation of Makefile.pdlibbuilder-based libraries for all major platforms from Linux 64-bit systems. The system is tested on Debian Buster (Debian 10) X64.
 *Its purpose is only to create Pure Data external deken-packages for multiple platforms.*
 
-Dekencross.sh is written by Katja Vetter, partially based on e deken-package script 'dekenizer.sh' by Fred Jan Kraan.
+Dekencross.sh is written by Katja Vetter, partially based on a deken-package script 'dekenizer.sh' by Fred Jan Kraan.
 
 This git platform is intended to attract more beta-testers and feedback on future enhancements. **Note this is not a tool to learn about programming or (cross-)compilation**.
 
@@ -31,16 +31,18 @@ Pure Data platform-specific extensions are used. These are:
 
 ### Build and package tree
 
-```  ./
-    osxcross12/   - OSX SDK package (see doc/crossbuild.txt on how to get it)
-    pd-libs/      - Location of the source packages and build/package results
+```
+  ./
+    osxcross12/   - OSX SDK package (see doc/crossbuild.txt on how to get it).
+    pd-libs/      - Location of the source packages and build/package results.
             dekencross.sh - the cross compile and build script
-    pd-sources/   - The Pure Data source package
-    pd-win32/     - The Pure Data Win32 binaries
-    pd-win64/     - The Pure Data Win64 binaries
+    pd-sources/   - The Pure Data source package. 
+    pd-win32/     - The Pure Data Win32 binaries.
+    pd-win64/     - The Pure Data Win64 binaries.
 ```
 
-The source packages are just libraries as copied or cloned from a git-repository. These libraries should be Makefile.pdlibbuilder 0.6.0 based. Makefile.pdlibbuilder can be found here: https://github.com/pure-data/pd-lib-builder
+The source packages are just libraries as copied or cloned from a git-repository. These libraries should be Makefile.pdlibbuilder 0.6.0 based. Makefile.pdlibbuilder can be found here: https://github.com/pure-data/pd-lib-builder.
+The latter three can be copied from http://msp.ucsd.edu/software.html.
 
 ### Usage
 
@@ -50,23 +52,28 @@ It is important to have separate names for the source directory and the build/pa
 
   `bash dekencross.sh pd-freeverb~ freeverb~`
 
+Here *pd-freeverb~* is the name of the github repository. *freeverb~* is used in the package name.
+
 ### Operational details
 
-In the pd-lib a new directory will be created, <library name>-bindist which 
+In the pd-lib a new directory will be created, &lt;library name&gt;-bindist which 
 contains a directories per built platform, each containing an installed external. 
-These installed extrnal directory are packaged to a .dek file.
+These installed extrnal directory are packaged to a .dek file, composed of the 
+&lt;library name&gt;, [v&lt;version&gt;](all platforms), (Sources) and extension '.dek'.
 Some extra operations are performed:
 
- * The <external>-meta.pd is probed in the <library source dir> for the VERSION, 
+ * The &lt;external&gt;-meta.pd is probed in the &lt;library source dir&gt; for the VERSION, 
    which will part of the .dek file
- * The <library source dir> is packaged in a zip and copied in the install directory
-   before packaging. The filename <library name>[v<version>](Sources).zip 
- * An "objects.txt" inside the <library source dir> will be copied to the .dek 
+ * The &lt;library source dir&gt; is packaged in a zip and copied in the install directory
+   before packaging. The filename &lt;library name&gt;[v&lt;version&gt;](Sources).zip 
+ * An "objects.txt" inside the &lt;library source dir&gt; will be copied to the .dek 
    filename and have '.txt' appended
  * A sha256sum will be calculated from the .dek file and placed in a file .dek 
    filename and have '.sha256' appended
- * The dekencross.sh will abort when the <library name>-bindist directory already exists.
+ * The dekencross.sh will abort when the &lt;library name&gt;-bindist directory already exists.
  * The dekencross.sh will abort when an error occurrs after argument parsing.
+
+The result is ready to be uploaded with the deken-dev tool; `deken upload *.dek`.
 
 ### Configuration
 
