@@ -1,0 +1,48 @@
+crossbuild.txt, October 2019
+
+
+On a Debian Buster(-based) x86_64 system it is possible to set up cross build toolchains for all platforms supported by Pure Data. Most tools are available as Debian packages. 
+
+Since g++ compilers depend on gcc which in turn depend on libc, installing g++ should result in a complete toolchain for a given platform.
+
+- g++-i386-linux-gnu (for Linux 32 bit builds)
+- g++-arm-linux-gnueabihf (for ARM 32 bit builds)
+- g++-aarch64-linux-gnu (for ARM 64 bit builds)
+- mingw-w64 (gcc & g++ for Windows 32 and 64 bit builds)
+
+
+-------------------------------------------------
+
+
+Cross tools for target OSX are not available as Debian packages. Instead use this project:
+
+    github.com/tpoechtrager/osxcross
+
+It has excellent documentation, but not all described steps are needed on Debian(-based) systems. Summary of setup:
+
+1 - install packages: clang cmake git patch python libssl-dev
+lzma-dev libxml2-dev
+
+2 - copy osxcross project tree on your Linux system
+
+3 - on Linux or OSX, use osxcross to make OSX SDK tarball*
+
+4 - copy SDK tarball into dir "tarballs" of osxcross on your Linux system
+
+5 - in osxcross root dir on Linux, run ./build.sh to build the cross tools
+
+6 - if successful, dir target/bin in osxcross holds the cross build tools
+
+7 - add this path to $PATH when using the tools
+
+
+* osxcross defines many ways to build an SDK tarball. If you have access to OSX with dev tools installed, copy osxcross to that machine and call script:
+
+    ./tools/gen_sdk_package.sh.
+  
+It will pack any SDK found. If you copy more than one SDK to dir "tarballs" on Linux, select a version when building:
+
+    $ SDK_VERSION=<version> ./build.sh
+ 
+
+
