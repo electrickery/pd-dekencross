@@ -37,7 +37,8 @@ Pure Data platform-specific extensions are used. These are:
             dekencross.sh - the cross compile and build script
     pd-sources/   - The Pure Data source package
     pd-win32/     - The Pure Data Win32 binaries
-    pd-win64/     - The Pure Data Win64 binaries```
+    pd-win64/     - The Pure Data Win64 binaries
+```
 
 The source packages are just libraries as copied or cloned from a git-repository. These libraries should be Makefile.pdlibbuilder 0.6.0 based. Makefile.pdlibbuilder can be found here: https://github.com/pure-data/pd-lib-builder
 
@@ -76,7 +77,8 @@ The script has extensive options for configuration, but only the default configu
   pdsourcepath=$parentpath/pd-sources
   pdwin32path=$parentpath/pd-win32
   pdwin64path=$parentpath/pd-win64
-  darwinsdkpath=$parentpath/osxcross$darwinversion/target/bin```
+  darwinsdkpath=$parentpath/osxcross$darwinversion/target/bin
+```
 
 
 *Fred Jan Kraan, fjkraan@xs4all.nl, 2020-01-12*
