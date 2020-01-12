@@ -56,24 +56,26 @@ Here *pd-freeverb~* is the name of the github repository. *freeverb~* is used in
 
 ### Operational details
 
-In the pd-lib a new directory will be created, &lt;library name&gt;-bindist which 
+In the pd-lib a new directory will be created, **&lt;library name&gt;-bindist** which 
 contains a directories per built platform, each containing an installed external. 
-These installed extrnal directory are packaged to a .dek file, composed of the 
-&lt;library name&gt;, [v&lt;version&gt;](all platforms), (Sources) and extension '.dek'.
+These installed external directory are each packaged to a &lt;package name&gt;.dek file. 
+The **package name** is composed of the &lt;library name&gt;, 
+the \[v&lt;version&gt;\](platform-name), "(Sources)" and extension '.dek'. 
 Some extra operations are performed:
 
- * The &lt;external&gt;-meta.pd is probed in the &lt;library source dir&gt; for the VERSION, 
-   which will part of the .dek file
- * The &lt;library source dir&gt; is packaged in a zip and copied in the install directory
-   before packaging. The filename &lt;library name&gt;[v&lt;version&gt;](Sources).zip 
- * An "objects.txt" inside the &lt;library source dir&gt; will be copied to the .dek 
-   filename and have '.txt' appended
- * A sha256sum will be calculated from the .dek file and placed in a file .dek 
-   filename and have '.sha256' appended
- * The dekencross.sh will abort when the &lt;library name&gt;-bindist directory already exists.
+ * The &lt;library name&gt;-meta.pd is probed in the &lt;library source dir&gt; for the VERSION, 
+   which will part of the &lt;package name&gt;.dek file,
+ * The clean &lt;library source dir&gt; is packaged in a zip file and copied in the install 
+   directory before packaging. The filename &lt;library name&gt;[v&lt;version&gt;](Sources).zip, 
+ * An "objects.txt" inside the &lt;library source dir&gt; will be copied to the a file named 
+   &lt;package name&gt;.dek.txt,
+ * A sha256sum will be calculated from the &lt;package name&gt;.dek file and placed in a file 
+   named &lt;package name&gt;.dek.sha256,
+ * The dekencross.sh will abort when the &lt;library name&gt;-bindist directory already exists,
  * The dekencross.sh will abort when an error occurrs after argument parsing.
 
-The result is ready to be uploaded with the deken-dev tool; `deken upload *.dek`.
+The result is ready to be uploaded with the deken-dev tool; `deken upload *.dek`. The .dek files
+are produced per platform, except the MacOSX versions which are in one fat package. 
 
 ### Configuration
 
