@@ -60,7 +60,7 @@ In the pd-lib a new directory will be created, **`<library name>-bindist`** whic
 contains a directories per built platform, each containing an installed library of externals. 
 These installed external directory are each packaged to a `<package name>.dek` file. 
 The **package name** is composed of the `<library name>`, 
-the `[v<version>]](platform-name)`, `(Sources)` and the extension `.dek`.
+the `[v<version>](<platform name>)`, `(Sources)` and the extension `.dek`.
 
 Some extra operations are performed:
 
