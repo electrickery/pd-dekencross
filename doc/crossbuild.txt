@@ -1,7 +1,8 @@
 crossbuild.txt, October 2019
 
 
-On a Debian Buster(-based) x86_64 system it is possible to set up cross build toolchains for all platforms supported by Pure Data. Most tools are available as Debian packages. 
+On a Debian Buster(-based) x86_64 system it is possible to set up cross build toolchains for all platforms supported by Pure Data. Most 
+tools are available as Debian packages. 
 
 Since g++ compilers depend on gcc which in turn depend on libc, installing g++ should result in a complete toolchain for a given platform.
 
