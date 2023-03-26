@@ -1,5 +1,5 @@
 #!/bin/bash
-# version 0.2.0, 2023-03-26
+# version 0.1.2, 2023-03-26
 
 # dekencross.sh: cross-compile a pd library for multiple platforms and make
 # deken packages for Linux ARM, Linux Intel, OSX and Windows.
@@ -17,12 +17,12 @@
 
 
 function usage(){
-  echo ==== usage: $0 "<library name> <library source dir>"
-  echo ==== source dir must be relative path
+  echo ==== usage: $0 "<library name> <library source dir> <version>"
+  echo ==== source dir must be relative path, version string mandatory
 }
 
 # Exit with usage message if number of arguments is not equal to 2.
-[ "$#" -ne 2 ] && { (usage); exit 1; }
+[ "$#" -ne 3 ] && { (usage); exit 1; } || echo "argument count ok."
 
 # First argument: library name.
 LIBNAME=$1
@@ -32,16 +32,16 @@ LIBNAME=$1
 SOURCEDIR=$2
 
 # SOURCEDIR must be relative path for source packaging, so exit when absolute.
-[[ "$SOURCEDIR" = /* ]] && { ( usage ) ; exit 1; }
+[[ "$SOURCEDIR" = /* ]] && { (usage); exit 1; } || echo "$SOURCEDIR is relative."
 
 # Figure out library version from meta file if present.
-if [ -f $SOURCEDIR/$LIBNAME-meta.pd ]
-then
-  VERSION=( `sed -n \
-    's|^\#X text [0-9][0-9]* [0-9][0-9]* VERSION \(.*\);|\1|p' \
-    $SOURCEDIR/$LIBNAME-meta.pd` )
-fi
 
+VERSION=`echo $3 | sed -e 's/^[vV]//'`
+
+#version should be a triplet too, leading 'v' is optional
+[[ "$VERSION" =~ [vV]?[0-9]+\.[0-9]+\.[0-9]+ ]] && echo "version format match." || { (usage); exit 1; }
+
+echo $VERSION
 
 ################################################################################
 ########### paths ##############################################################

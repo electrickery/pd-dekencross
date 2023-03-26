@@ -58,9 +58,9 @@ The Pure Data build tree can be copied from http://msp.ucsd.edu/software.html.
 
 It is important to have separate names for the source directory and the build/package directory. The latter wil be the name used for the package name. An example:
 
-  `bash dekencross.sh pd-freeverb~ freeverb~v1.2.3`
+  `bash dekencross.sh freeverb~ freeverb-master v1.2.3`
 
-Here *pd-freeverb~* is the name of the github repository. *freeverb~* is used in the package name.
+Here *freeverb-master* is the name of the github repository. *freeverb~* is used in the package name. *v1.2.3* is the current version number as found in the freeverb~-meta.pd file.
 
 ### Operational details
 
