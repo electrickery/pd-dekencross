@@ -45,5 +45,14 @@ It will pack any SDK found. If you copy more than one SDK to dir "tarballs" on L
 
     $ SDK_VERSION=<version> ./build.sh
  
+-------------------------------------------------
 
+
+Notes:
+ 
+The SDK version to be used for the ARM64 platform no longer supports i386. Therefore an older version is
+also installed. As of 2023-03 the versions 20.2 and 12 are used.
+
+If you change the location of the build SDK, you also have to rebuild it. There are hard-coded paths in
+the created binary files. If you get compile errors about a random library being not found, a rebuild might fix the problem.
 
