@@ -1,5 +1,5 @@
 #!/bin/bash
-# version 0.1.1, 2020-01-05
+# version 0.2.0, 2023-03-26
 
 # dekencross.sh: cross-compile a pd library for multiple platforms and make
 # deken packages for Linux ARM, Linux Intel, OSX and Windows.
@@ -48,18 +48,20 @@ fi
 ################################################################################
 
 
-# darwin version 12 corresponds with OSX 10.8
-darwinversion=12
+# darwin version 20.2 corresponds with OSX 11.1
+darwinversion=20.2
+dwvers=`echo $darwinversion | tr -d '.'`
+darwinversionI386=12
 
 dekencrosspath=$PWD
 parentpath=$PWD/..
 pdsourcepath=$parentpath/pd-sources
 pdwin32path=$parentpath/pd-win32
 pdwin64path=$parentpath/pd-win64
-darwinsdkpath=$parentpath/osxcross$darwinversion/target/bin
+darwinsdkpath=$parentpath/osxcross$dwvers/target/bin
+darwinsI386dkpath=$parentpath/osxcross$darwinversionI386/target/bin
 
-export PATH=$PATH:$darwinsdkpath
-#export PDLIBBUILDER_DIR=$parentdir
+export PATH=$PATH:$darwinsdkpath:$darwinsI386dkpath
 export TMPDIR=$parentpath/tmp
 
 # Absolute paths for current session.
@@ -81,7 +83,10 @@ x86_64-linux-gnu \
 x86_64-w64-mingw32 \
 i686-w64-mingw32 \
 x86_64-w64-mingw32 \
-x86_64-apple-darwin$darwinversion )
+i386-apple-darwin$darwinversionI386 \
+x86_64-apple-darwin$darwinversion \
+aarch64-apple-darwin$darwinversion \
+)
 
 # Translate GNU triplets to deken triplets. For OSX we try to build fat
 # binaries, hence the double deken triplet.
@@ -92,8 +97,9 @@ dektriplet[i686-linux-gnu]="(Linux-i386-32)"
 dektriplet[x86_64-linux-gnu]="(Linux-amd64-32)"
 dektriplet[i686-w64-mingw32]="(Windows-i386-32)"
 dektriplet[x86_64-w64-mingw32]="(Windows-amd64-32)"
-dektriplet[x86_64-apple-darwin$darwinversion]="(Darwin-amd64-32)(Darwin-i386-32)"
-
+dektriplet[i386-apple-darwin$darwinversionI386]="(Darwin-i386-32)"
+dektriplet[x86_64-apple-darwin$darwinversion]="(Darwin-amd64-32)"
+dektriplet[aarch64-apple-darwin$darwinversion]="(Darwin-arm64-32)"
 
 ################################################################################
 ########### platform parameters ################################################
@@ -108,7 +114,9 @@ ext[i686-linux-gnu]=l_i386
 ext[x86_64-linux-gnu]=l_amd64
 ext[i686-w64-mingw32]=m_i386
 ext[x86_64-w64-mingw32]=m_amd64
-ext[x86_64-apple-darwin$darwinversion]=d_fat
+ext[i386-apple-darwin$darwinversionI386]=d_i386
+ext[x86_64-apple-darwin$darwinversion]=d_amd64
+ext[aarch64-apple-darwin$darwinversion]=d_arm64
 
 # Define pd source dir (source + binaries for Windows) per platform.
 declare -A pddir
@@ -118,7 +126,9 @@ pddir[i686-linux-gnu]=$pdsourcepath
 pddir[x86_64-linux-gnu]=$pdsourcepath
 pddir[i686-w64-mingw32]=$pdwin32path
 pddir[x86_64-w64-mingw32]=$pdwin64path
+pddir[i386-apple-darwin$darwinversionI386]=$pdsourcepath
 pddir[x86_64-apple-darwin$darwinversion]=$pdsourcepath
+pddir[aarch64-apple-darwin$darwinversion]=$pdsourcepath
 
 
 ################################################################################

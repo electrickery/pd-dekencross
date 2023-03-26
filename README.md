@@ -11,7 +11,9 @@ This git platform is intended to attract more beta-testers and feedback on futur
 
 The script is in an early beta-stage, but can already create deken packages for:
 
- * Darwin-amd64-32 & Darwin-i386-32 (fat-binaries)
+ * Darwin-amd64-32
+ * Darwin-i386-32 
+ * Darwin-arm64-32
  * Linux-amd64-32
  * Linux-i386-32
  * Linux-arm-32
@@ -21,7 +23,9 @@ The script is in an early beta-stage, but can already create deken packages for:
 
 Pure Data platform-specific extensions are used. These are:
 
- * d_fat
+ * d_amd64
+ * d_i386
+ * d_arm64
  * l_arm
  * l_arm64
  * l_i386
@@ -33,16 +37,20 @@ Pure Data platform-specific extensions are used. These are:
 
 ```
   ./
-    osxcross12/   - OSX SDK package (see doc/crossbuild.txt on how to get it).
+    osxcross202/  - OSX SDK package for amd64 and arm64 (see doc/crossbuild.txt on how to get it).
+    osxcross12/   - OSX SDK package for i386 (see doc/crossbuild.txt on how to get it).
     pd-libs/      - Location of the source packages and build/package results.
-            dekencross.sh - the cross compile and build script
-    pd-sources/   - The Pure Data source package. 
-    pd-win32/     - The Pure Data Win32 binaries.
-    pd-win64/     - The Pure Data Win64 binaries.
+    dekencross.sh - the cross compile and build script
+    pd-sources/   - The Pure Data source package. (The libraries require at least a m_pd.h.)
+    pd-win32/     - The Pure Data Win32 binaries. (Windows builds require a pd.dll.)
+    pd-win64/     - The Pure Data Win64 binaries. (Windows builds require a pd.dll.)
 ```
 
+The built of newer osxcrossNNN SDK packages contain absolute paths in object files, so don't move it after
+building without rebuild. The old SDK is required for Apple i386 processors.
+
 The source packages are just libraries as copied or cloned from a git-repository. These libraries should be Makefile.pdlibbuilder 0.6.0 based. Makefile.pdlibbuilder can be found here: https://github.com/pure-data/pd-lib-builder.
-The latter three can be copied from http://msp.ucsd.edu/software.html.
+The Pure Data build tree can be copied from http://msp.ucsd.edu/software.html.
 
 ### Usage
 
@@ -50,7 +58,7 @@ The latter three can be copied from http://msp.ucsd.edu/software.html.
 
 It is important to have separate names for the source directory and the build/package directory. The latter wil be the name used for the package name. An example:
 
-  `bash dekencross.sh pd-freeverb~ freeverb~`
+  `bash dekencross.sh pd-freeverb~ freeverb~v1.2.3`
 
 Here *pd-freeverb~* is the name of the github repository. *freeverb~* is used in the package name.
 
@@ -83,16 +91,21 @@ are produced per platform, except the MacOSX versions which are in one fat packa
 The script has extensive options for configuration, but only the default configuration is described. Note the darwin version does not match the OSX version.
 
 ```
-  darwinversion=12
+  darwinversion=20.2
+  dwvers=`echo $darwinversion | tr -d '.'`
+  darwinversionI386=12
 
+  dekencrosspath=$PWD
+  parentpath=$PWD/..
   pdsourcepath=$parentpath/pd-sources
   pdwin32path=$parentpath/pd-win32
   pdwin64path=$parentpath/pd-win64
-  darwinsdkpath=$parentpath/osxcross$darwinversion/target/bin
+  darwinsdkpath=$parentpath/osxcross$dwvers/target/bin
+  darwinsI386dkpath=$parentpath/osxcross$darwinversionI386/target/bin
 ```
 ### More information
 
  * https://github.com/electrickery/pd-dekencross/blob/master/doc/crossbuild.txt
  * https://github.com/pure-data/pd-lib-builder/blob/master/tips-tricks.md
 
-*Fred Jan Kraan, fjkraan@xs4all.nl, 2020-01-12*
+*Fred Jan Kraan, fjkraan@electrickery.nl, 2023-03-26*
